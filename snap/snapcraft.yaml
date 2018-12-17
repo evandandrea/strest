@@ -1,0 +1,30 @@
+name: strest
+base: core18
+version: git
+summary: Set up tests for REST in seconds with YAML
+description: |
+  Flexible REST tests
+
+  * Connect multiple requests: Example Embed an authorization token you got as
+    a response from a login request in your following requests automatically
+  * 📝 YAML Syntax: Write all of your tests in YAML files
+  * 🎉 Easy to understand: You'll understand the concept in seconds and be
+    able to start instantly (seriously!)
+
+grade: stable
+confinement: strict
+
+parts:
+  strest:
+    plugin: nodejs
+    override-build: |
+      PATH=../npm/bin:$PATH yarn run build
+      snapcraftctl build
+    source: .
+
+apps:
+  strest:
+    command: strest
+    plugs:
+      - home
+      - network
